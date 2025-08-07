@@ -1,0 +1,6 @@
+*.csv        # ignore all .csv files
+*.json       # ignore all .json files
+data/*.txt   # ignore only .txt files inside data folder
+logs/        # ignore logs folder
+*.model 
+*.vocab
