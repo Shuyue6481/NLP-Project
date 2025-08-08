@@ -5,7 +5,6 @@ from tokenizers import Tokenizer
 from tokenizers.models import BPE, WordPiece, Unigram
 from tokenizers.trainers import BpeTrainer, WordPieceTrainer, UnigramTrainer
 from tokenizers.pre_tokenizers import Whitespace
-# Import the normalizers to match your teammate's script
 from tokenizers.normalizers import Lowercase, NFD, StripAccents, Sequence as NormalizerSequence
 
 def train_tokenizer(config):
@@ -35,8 +34,6 @@ def train_tokenizer(config):
 
         tokenizer = Tokenizer(model)
         
-        # --- THIS IS THE NEW, IMPORTANT STEP ---
-        # Add the normalizer to match your teammate's process
         tokenizer.normalizer = NormalizerSequence([NFD(), Lowercase(), StripAccents()])
         # -----------------------------------------
 
@@ -49,9 +46,6 @@ def train_tokenizer(config):
         sp_model_type = model_type.split('-')[-1]
         model_prefix = os.path.splitext(config.output_path)[0]
         
-        # SentencePiece handles normalization via command line flags,
-        # the default behavior is very similar (NFC, lowercasing can be added).
-        # We will stick to the standard, robust SentencePiece training command.
         train_command = (
             f"--input={config.corpus_file} --model_prefix={model_prefix} "
             f"--vocab_size={config.vocab_size} --model_type={sp_model_type} "
